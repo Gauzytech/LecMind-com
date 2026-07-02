@@ -1,0 +1,1615 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LecMind 免费内测招募</title>
+  <style>
+    :root {
+      --bg: #f4faff;
+      --surface: #ffffff;
+      --text: #060b18;
+      --muted: #48566f;
+      --subtle: #7b879c;
+      --blue: #0f5bff;
+      --blue-dark: #073bc4;
+      --blue-soft: #e8f1ff;
+      --navy: #06194a;
+      --border: #e4edf8;
+      --shadow: 0 28px 80px rgba(39, 83, 151, 0.16);
+      --soft-shadow: 0 18px 54px rgba(39, 83, 151, 0.11);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 50% 0%, rgba(67, 136, 255, 0.11), transparent 32%),
+        linear-gradient(180deg, #f6fbff 0%, #f2f8ff 48%, #f8fcff 100%);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 74px;
+      padding: 20px 0 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo {
+      width: 146px;
+      height: auto;
+    }
+
+    .beta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 23px;
+      padding: 0 11px;
+      border-radius: 999px;
+      color: var(--blue);
+      background: rgba(15, 91, 255, 0.09);
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .beta-pill::before {
+      content: "";
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #22c55e;
+    }
+
+    .top-cta,
+    .primary-button,
+    .ghost-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    .top-cta {
+      min-width: 122px;
+      height: 40px;
+      border-radius: 7px;
+      color: #fff;
+      background: var(--blue);
+      font-size: 14px;
+      font-weight: 700;
+      box-shadow: 0 10px 26px rgba(15, 91, 255, 0.22);
+    }
+
+    .top-cta:hover,
+    .primary-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 34px rgba(15, 91, 255, 0.28);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(360px, 0.82fr) minmax(460px, 1.18fr);
+      gap: 64px;
+      align-items: center;
+      padding: 104px 0 144px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 13px;
+      margin: 0 0 16px;
+      color: var(--blue);
+      font-size: 14px;
+      font-weight: 750;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 1px;
+      background: var(--blue);
+      opacity: 0.7;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      letter-spacing: 0;
+    }
+
+    h1 {
+      max-width: 520px;
+      margin: 0;
+      font-size: clamp(44px, 5.1vw, 67px);
+      line-height: 1.14;
+      font-weight: 850;
+    }
+
+    .hero-copy {
+      max-width: 510px;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.9;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-top: 26px;
+    }
+
+    .primary-button {
+      min-width: 146px;
+      height: 46px;
+      padding: 0 20px;
+      border-radius: 8px;
+      color: #fff;
+      background: var(--blue);
+      font-size: 15px;
+      font-weight: 760;
+      box-shadow: 0 12px 28px rgba(15, 91, 255, 0.25);
+    }
+
+    .ghost-button {
+      min-width: 132px;
+      height: 46px;
+      border-radius: 8px;
+      color: #182237;
+      background: #fff;
+      font-size: 15px;
+      font-weight: 720;
+      box-shadow: 0 10px 28px rgba(42, 89, 160, 0.08);
+    }
+
+    .note {
+      margin: 18px 0 0;
+      color: #8b96aa;
+      font-size: 12px;
+    }
+
+    .hero-visual {
+      position: relative;
+      animation: floatUp 7s ease-in-out infinite;
+    }
+
+    .hero-visual > img {
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0 34px 58px rgba(36, 75, 140, 0.22));
+    }
+
+    .hero-diagram {
+      position: relative;
+      min-height: 438px;
+      padding: 34px;
+      border: 2px solid rgba(12, 56, 128, 0.48);
+      border-radius: 30px;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(97, 97, 255, 0.08), transparent 38%),
+        rgba(255, 255, 255, 0.86);
+      box-shadow: 0 34px 58px rgba(36, 75, 140, 0.22);
+      overflow: hidden;
+    }
+
+    .hero-diagram::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.82), transparent 24%, transparent 76%, rgba(255,255,255,0.7)),
+        radial-gradient(circle at 42% 50%, rgba(124, 58, 237, 0.1), transparent 34%);
+      pointer-events: none;
+    }
+
+    .format-card,
+    .output-card,
+    .lecmind-core {
+      position: absolute;
+      z-index: 1;
+      border: 1px solid rgba(220, 229, 242, 0.9);
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 18px 42px rgba(74, 84, 140, 0.12);
+    }
+
+    .format-card {
+      left: 30px;
+      top: 56px;
+      width: 178px;
+      min-height: 318px;
+      padding: 24px 22px;
+      border-radius: 24px;
+    }
+
+    .diagram-title {
+      margin: 0 0 24px;
+      color: #2b3345;
+      font-size: 20px;
+      font-weight: 820;
+      text-align: center;
+    }
+
+    .format-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px 20px;
+    }
+
+    .format-item {
+      display: grid;
+      justify-items: center;
+      gap: 8px;
+      color: #1c2433;
+      font-size: 14px;
+      font-weight: 750;
+    }
+
+    .file-icon {
+      width: 38px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 9px;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 840;
+      box-shadow: 0 10px 22px rgba(16, 24, 40, 0.1);
+      clip-path: polygon(0 0, 72% 0, 100% 28%, 100% 100%, 0 100%);
+    }
+
+    .file-icon.pdf { background: linear-gradient(145deg, #f04438, #c41712); }
+    .file-icon.video { background: linear-gradient(145deg, #3b82f6, #1155d9); }
+    .file-icon.book { background: linear-gradient(145deg, #8b5cf6, #5b2dd5); }
+    .file-icon.note { background: linear-gradient(145deg, #3b82f6, #2563eb); }
+    .file-icon.txt { background: linear-gradient(145deg, #9ca3af, #566071); }
+    .file-icon.img { background: linear-gradient(145deg, #8b5cf6, #6d28d9); }
+
+    .lecmind-core {
+      left: 50%;
+      top: 50%;
+      width: 132px;
+      height: 116px;
+      display: grid;
+      place-items: center;
+      transform: translate(-50%, -50%);
+      border-radius: 24px;
+    }
+
+    .core-book {
+      width: 48px;
+      height: 44px;
+      position: relative;
+      border-radius: 8px 8px 6px 6px;
+      background: linear-gradient(145deg, #8b5cf6, #4f46e5);
+    }
+
+    .core-book::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 2px;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.52);
+    }
+
+    .core-label {
+      display: block;
+      margin-top: 8px;
+      color: #111827;
+      font-size: 18px;
+      font-weight: 840;
+    }
+
+    .output-card {
+      right: 30px;
+      border-radius: 22px;
+      padding: 22px 24px;
+    }
+
+    .output-card.graph {
+      top: 34px;
+      width: 292px;
+      height: 126px;
+    }
+
+    .output-card.cards {
+      top: 188px;
+      width: 292px;
+      height: 126px;
+    }
+
+    .output-card.review {
+      bottom: 34px;
+      width: 292px;
+      height: 118px;
+    }
+
+    .output-title {
+      display: block;
+      margin-bottom: 12px;
+      color: #1f2937;
+      font-size: 20px;
+      font-weight: 820;
+    }
+
+    .graph-lines {
+      position: relative;
+      height: 56px;
+    }
+
+    .graph-node {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #4f8df7;
+      box-shadow: 0 8px 14px rgba(79, 141, 247, 0.25);
+    }
+
+    .graph-node:nth-child(1) { left: 28px; top: 25px; }
+    .graph-node:nth-child(2) { left: 78px; top: 12px; background: #8057e8; }
+    .graph-node:nth-child(3) { left: 132px; top: 28px; background: #6d5cf6; }
+    .graph-node:nth-child(4) { left: 190px; top: 14px; }
+    .graph-node:nth-child(5) { left: 232px; top: 34px; }
+
+    .card-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .mini-card {
+      height: 52px;
+      border-radius: 12px;
+      background: #f4f7ff;
+      position: relative;
+    }
+
+    .mini-card::before,
+    .mini-card::after {
+      content: "";
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      height: 7px;
+      border-radius: 999px;
+      background: #b9d4ff;
+    }
+
+    .mini-card::before { top: 15px; }
+    .mini-card::after { top: 30px; width: 48%; }
+    .mini-card.yellow { background: #fff7df; }
+    .mini-card.yellow::before,
+    .mini-card.yellow::after { background: #ffd778; }
+    .mini-card.purple { background: #f2edff; }
+    .mini-card.purple::before,
+    .mini-card.purple::after { background: #b9a7ff; }
+
+    .review-lines {
+      display: grid;
+      gap: 10px;
+    }
+
+    .review-line {
+      display: grid;
+      grid-template-columns: 42px 1fr 18px;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .calendar {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(180deg, #8b5cf6 0 32%, #eef2ff 32%);
+    }
+
+    .line-stack {
+      display: grid;
+      gap: 7px;
+    }
+
+    .line-stack span {
+      height: 8px;
+      border-radius: 999px;
+      background: #d8deea;
+    }
+
+    .check-dot {
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      background: #22c55e;
+      position: relative;
+    }
+
+    .check-dot::after {
+      content: "";
+      position: absolute;
+      left: 5px;
+      top: 3px;
+      width: 5px;
+      height: 9px;
+      border: solid #fff;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+
+    .diagram-arrow {
+      position: absolute;
+      z-index: 0;
+      border-top: 3px dashed rgba(139, 92, 246, 0.36);
+    }
+
+    .diagram-arrow::after {
+      content: "";
+      position: absolute;
+      right: -4px;
+      top: -7px;
+      width: 0;
+      height: 0;
+      border-left: 10px solid rgba(139, 92, 246, 0.36);
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+    }
+
+    .arrow-in {
+      left: 212px;
+      top: 218px;
+      width: 142px;
+    }
+
+    .arrow-graph {
+      left: 430px;
+      top: 145px;
+      width: 110px;
+      transform: rotate(-25deg);
+    }
+
+    .arrow-cards {
+      left: 430px;
+      top: 220px;
+      width: 116px;
+    }
+
+    .arrow-review {
+      left: 430px;
+      top: 288px;
+      width: 122px;
+      transform: rotate(25deg);
+    }
+
+    .hero-diagram {
+      min-height: 410px;
+      border-color: rgba(10, 50, 122, 0.46);
+      border-width: 3px;
+      background:
+        radial-gradient(circle at 52% 52%, rgba(124, 58, 237, 0.18), transparent 28%),
+        linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.9));
+    }
+
+    .format-card {
+      left: 54px;
+      top: 58px;
+      width: 196px;
+      min-height: 300px;
+      padding: 27px 26px;
+    }
+
+    .diagram-title {
+      margin-bottom: 24px;
+      text-align: left;
+      font-size: 22px;
+    }
+
+    .format-grid {
+      gap: 22px 28px;
+    }
+
+    .file-icon {
+      width: 40px;
+      height: 46px;
+    }
+
+    .lecmind-core {
+      left: 53%;
+      top: 55%;
+      z-index: 3;
+      width: 142px;
+      height: 112px;
+      background: rgba(255,255,255,0.78);
+      backdrop-filter: blur(6px);
+    }
+
+    .core-book {
+      width: 50px;
+      height: 45px;
+    }
+
+    .output-card.graph {
+      right: 42px;
+      top: 36px;
+      width: 310px;
+      height: 118px;
+      z-index: 2;
+    }
+
+    .output-card.cards {
+      right: 42px;
+      top: 184px;
+      width: 310px;
+      height: 122px;
+      z-index: 2;
+      background: rgba(255,255,255,0.72);
+      backdrop-filter: blur(5px);
+    }
+
+    .output-card.review {
+      right: 42px;
+      bottom: 38px;
+      width: 310px;
+      height: 118px;
+      z-index: 4;
+      background: rgba(255,255,255,0.86);
+      backdrop-filter: blur(8px);
+    }
+
+    .diagram-arrow {
+      z-index: 1;
+      border-top-color: rgba(139, 92, 246, 0.28);
+    }
+
+    .diagram-arrow::after {
+      border-left-color: rgba(139, 92, 246, 0.28);
+    }
+
+    .arrow-in {
+      left: 252px;
+      top: 230px;
+      width: 160px;
+    }
+
+    .arrow-graph {
+      left: 438px;
+      top: 188px;
+      width: 170px;
+      transform: rotate(-16deg);
+    }
+
+    .arrow-cards {
+      left: 448px;
+      top: 232px;
+      width: 220px;
+    }
+
+    .arrow-review {
+      left: 448px;
+      top: 276px;
+      width: 190px;
+      transform: rotate(14deg);
+    }
+
+    .summary {
+      padding: 0 0 126px;
+      scroll-margin-top: 24px;
+    }
+
+    .summary-panel {
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 22px;
+      padding: 24px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: var(--shadow);
+    }
+
+    .summary-main {
+      min-height: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 44px 36px 34px;
+      border-radius: 24px;
+      color: #fff;
+      background:
+        radial-gradient(circle at 92% 10%, rgba(70, 125, 255, 0.42), transparent 34%),
+        linear-gradient(145deg, #06194a, #123bb7);
+    }
+
+    .summary-main h2 {
+      max-width: 430px;
+      margin: 0;
+      font-size: clamp(34px, 4vw, 50px);
+      line-height: 1.34;
+      font-weight: 840;
+    }
+
+    .summary-main p {
+      max-width: 480px;
+      margin: 26px 0 0;
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 15px;
+    }
+
+    .summary-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 32px;
+    }
+
+    .metric {
+      padding: 16px 18px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 13px;
+    }
+
+    .metric strong {
+      display: block;
+      color: #fff;
+      font-size: 27px;
+      line-height: 1.1;
+    }
+
+    .trait-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .trait-card {
+      min-height: 144px;
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: #fff;
+    }
+
+    .trait-card b {
+      display: inline-grid;
+      place-items: center;
+      min-width: 36px;
+      height: 28px;
+      margin-bottom: 18px;
+      border-radius: 9px;
+      color: var(--blue);
+      background: var(--blue-soft);
+      font-size: 13px;
+    }
+
+    .trait-card h3 {
+      margin: 0 0 8px;
+      font-size: 19px;
+      line-height: 1.3;
+    }
+
+    .trait-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .section-title {
+      max-width: 780px;
+      margin: 0 auto 78px;
+      text-align: center;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: clamp(34px, 4.3vw, 52px);
+      line-height: 1.18;
+      font-weight: 840;
+    }
+
+    #story-title {
+      max-width: none;
+      white-space: nowrap;
+      font-size: 44px;
+    }
+
+    .section-title p {
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .feature-section {
+      padding: 0 0 120px;
+    }
+
+    .feature-row {
+      display: grid;
+      grid-template-columns: minmax(330px, 0.86fr) minmax(510px, 1.14fr);
+      gap: 72px;
+      align-items: center;
+      margin-bottom: 132px;
+    }
+
+    .feature-row.reverse {
+      grid-template-columns: minmax(510px, 1.14fr) minmax(330px, 0.86fr);
+    }
+
+    .feature-row.reverse .feature-copy {
+      order: 2;
+    }
+
+    .feature-copy .number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 30px;
+      height: 25px;
+      margin-bottom: 26px;
+      border-radius: 8px;
+      color: var(--blue);
+      background: var(--blue-soft);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .feature-copy h2 {
+      max-width: 430px;
+      margin: 0;
+      font-size: clamp(30px, 4vw, 44px);
+      line-height: 1.25;
+      font-weight: 840;
+    }
+
+    .feature-copy p {
+      max-width: 470px;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.95;
+    }
+
+    .feature-list {
+      display: grid;
+      gap: 11px;
+      margin: 22px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: #34445c;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .feature-list li::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      flex: 0 0 auto;
+      margin-top: 9px;
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 0 0 0 4px rgba(15, 91, 255, 0.1);
+    }
+
+    .feature-copy .primary-button {
+      margin-top: 26px;
+    }
+
+    .screen-card {
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0 28px 44px rgba(38, 84, 150, 0.2));
+    }
+
+    .core-path {
+      padding: 26px 0 132px;
+    }
+
+    .path-showcase {
+      display: grid;
+      grid-template-columns: 320px minmax(0, 1fr);
+      min-height: 600px;
+      overflow: hidden;
+      border: 1px solid rgba(205, 221, 242, 0.9);
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: 0 34px 90px rgba(39, 83, 151, 0.16);
+    }
+
+    .path-tabs {
+      display: grid;
+      grid-template-rows: repeat(4, minmax(0, 1fr));
+      background: rgba(255, 255, 255, 0.96);
+    }
+
+    .path-tab {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      min-height: 150px;
+      padding: 28px 34px;
+      border: 0;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      background: transparent;
+      text-align: left;
+    }
+
+    .path-tab:last-child {
+      border-bottom: 0;
+    }
+
+    .path-tab::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -1px;
+      width: 0;
+      height: 2px;
+      background: #7f8b9d;
+      transition: width 240ms ease;
+    }
+
+    .path-tab[aria-selected="true"]::after {
+      width: 0;
+    }
+
+    .path-showcase.is-autoplaying .path-tab[aria-selected="true"]::after {
+      animation: pathTabProgress 5s linear forwards;
+    }
+
+    .path-showcase.is-paused .path-tab[aria-selected="true"]::after {
+      animation-play-state: paused;
+    }
+
+    .path-tab-title {
+      font-size: 24px;
+      line-height: 1.22;
+      font-weight: 850;
+    }
+
+    .path-tab-copy {
+      display: none;
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.72;
+    }
+
+    .path-tab[aria-selected="true"] .path-tab-copy {
+      display: block;
+    }
+
+    .path-stage {
+      position: relative;
+      min-width: 0;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 72% 15%, rgba(15, 91, 255, 0.1), transparent 32%),
+        #eef6ff;
+    }
+
+    .path-panel {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 32px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 260ms ease;
+    }
+
+    .path-panel.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .path-panel img {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 8px;
+      object-fit: contain;
+      object-position: center;
+      filter: drop-shadow(0 28px 44px rgba(38, 84, 150, 0.18));
+    }
+
+    @keyframes pathTabProgress {
+      from {
+        width: 0;
+      }
+
+      to {
+        width: 74%;
+      }
+    }
+
+    .final-cta {
+      margin: 0 auto 92px;
+      padding: 60px 34px;
+      border-radius: 26px;
+      color: #fff;
+      background:
+        radial-gradient(circle at 82% 20%, rgba(67, 126, 255, 0.46), transparent 36%),
+        linear-gradient(145deg, #06194a, #123bb7);
+      box-shadow: 0 32px 78px rgba(8, 34, 107, 0.27);
+      text-align: center;
+    }
+
+    .final-cta h2 {
+      margin: 0;
+      font-size: clamp(34px, 4.4vw, 52px);
+      line-height: 1.18;
+      font-weight: 840;
+    }
+
+    .final-cta p {
+      margin: 16px auto 28px;
+      color: rgba(255, 255, 255, 0.77);
+      font-size: 17px;
+    }
+
+    .final-cta .primary-button {
+      color: var(--blue-dark);
+      background: #fff;
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12);
+    }
+
+    .footer {
+      padding: 0 0 42px;
+      color: var(--subtle);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 700ms ease, transform 700ms ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes floatUp {
+      0%, 100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-9px);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .page {
+        width: min(100% - 28px, 720px);
+      }
+
+      .top-cta {
+        display: none;
+      }
+
+      .hero,
+      .summary-panel,
+      .feature-row,
+      .feature-row.reverse {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        gap: 40px;
+        padding: 54px 0 82px;
+      }
+
+      .hero-diagram {
+        width: 680px;
+        min-height: 410px;
+      }
+
+      .format-card {
+        left: 54px;
+        top: 58px;
+        width: 196px;
+        min-height: 300px;
+        padding: 27px 26px;
+      }
+
+      .diagram-title,
+      .output-title {
+        font-size: 20px;
+      }
+
+      .format-grid {
+        gap: 22px 28px;
+      }
+
+      .file-icon {
+        width: 40px;
+        height: 46px;
+        font-size: 13px;
+      }
+
+      .lecmind-core {
+        width: 142px;
+        height: 112px;
+      }
+
+      .output-card {
+        right: 42px;
+        padding: 22px 24px;
+      }
+
+      .output-card.graph,
+      .output-card.cards,
+      .output-card.review {
+        width: 310px;
+      }
+
+      .output-card.graph { top: 36px; }
+      .output-card.cards { top: 184px; }
+      .output-card.review { bottom: 38px; }
+
+      .arrow-in {
+        left: 252px;
+        top: 230px;
+        width: 160px;
+      }
+
+      .arrow-graph,
+      .arrow-cards,
+      .arrow-review {
+        display: block;
+      }
+
+      .feature-row.reverse .feature-copy {
+        order: 0;
+      }
+
+      .summary {
+        padding-bottom: 82px;
+      }
+
+      .summary-main {
+        min-height: auto;
+      }
+
+      .feature-section {
+        padding-bottom: 70px;
+      }
+
+      .feature-row {
+        gap: 34px;
+        margin-bottom: 78px;
+      }
+
+      .section-title {
+        margin-bottom: 46px;
+      }
+
+      #story-title {
+        font-size: 34px;
+      }
+
+      .path-showcase {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .path-tabs {
+        display: flex;
+        overflow-x: auto;
+        border-bottom: 1px solid var(--border);
+        scroll-snap-type: x mandatory;
+      }
+
+      .path-tab {
+        min-width: 230px;
+        min-height: 152px;
+        padding: 24px 24px 22px;
+        border-right: 1px solid var(--border);
+        border-bottom: 0;
+        scroll-snap-align: start;
+      }
+
+      .path-tab-title {
+        font-size: 21px;
+      }
+
+      .path-tab-copy {
+        font-size: 14px;
+      }
+
+      .path-stage {
+        min-height: 520px;
+      }
+
+      .path-panel {
+        padding: 22px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .logo {
+        width: 124px;
+      }
+
+      .beta-pill {
+        font-size: 11px;
+      }
+
+      h1 {
+        font-size: 40px;
+      }
+
+      .hero-diagram {
+        overflow-x: auto;
+      }
+
+      .hero-actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .primary-button,
+      .ghost-button {
+        width: 100%;
+      }
+
+      .summary-panel {
+        padding: 14px;
+        border-radius: 24px;
+      }
+
+      .summary-main {
+        padding: 28px 22px;
+      }
+
+      .summary-metrics,
+      .trait-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-copy h2,
+      .section-title h2,
+      .final-cta h2 {
+        font-size: 32px;
+      }
+
+      #story-title {
+        white-space: normal;
+      }
+
+      .core-path {
+        padding-bottom: 82px;
+      }
+
+      .path-showcase {
+        border-radius: 24px;
+      }
+
+      .path-tabs {
+        display: flex;
+        flex-direction: column;
+        overflow: visible;
+        border-bottom: 1px solid var(--border);
+        scroll-snap-type: none;
+      }
+
+      .path-tab {
+        min-width: 0;
+        min-height: 76px;
+        padding: 16px 20px;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+        scroll-snap-align: none;
+      }
+
+      .path-tab:last-child {
+        border-bottom: 0;
+      }
+
+      .path-tab-title {
+        font-size: 18px;
+      }
+
+      .path-tab-copy {
+        display: none;
+      }
+
+      .path-stage {
+        min-height: 0;
+      }
+
+      .path-panel {
+        position: relative;
+        inset: auto;
+        display: none;
+        padding: 16px;
+      }
+
+      .path-panel.active {
+        display: grid;
+      }
+
+      .path-panel img {
+        width: 100%;
+        height: auto;
+        max-width: none;
+        max-height: none;
+      }
+
+      .final-cta {
+        padding: 36px 18px;
+        border-radius: 22px;
+      }
+
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar" aria-label="页面顶部">
+      <div class="brand">
+        <img class="logo" src="public/组合 157.svg" alt="LecMind">
+        <span class="beta-pill">免费内测招募中</span>
+      </div>
+      <a class="top-cta" href="https://adqnb58k1a.feishu.cn/share/base/form/shrcn0AuDt79vIFh67A7WsnP6be" target="_blank" rel="noopener noreferrer">申请内测</a>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy-block reveal visible">
+          <p class="eyebrow">专为学生党打造</p>
+          <h1 id="hero-title">把PDF、课件和笔记变成今天该复习的清单</h1>
+          <p class="hero-copy">用LecMind整理分散资料，生成脑图和复习卡，让考前复习清晰有序。</p>
+          <div class="hero-actions">
+            <a class="primary-button" href="https://adqnb58k1a.feishu.cn/share/base/form/shrcn0AuDt79vIFh67A7WsnP6be" target="_blank" rel="noopener noreferrer">申请免费内测 →</a>
+            <a class="ghost-button" href="#overview">看看怎么个事</a>
+          </div>
+          <p class="note">产品尚未开放，第一批用户可免费体验。开放时将在短信通知你。</p>
+        </div>
+        <div class="hero-visual reveal visible">
+          <img src="public/header-icon.webp" alt="LecMind 将 PDF、课件和笔记整理为脑图、复习卡和今日复习清单">
+        </div>
+      </section>
+
+      <section class="summary reveal" id="overview" aria-labelledby="summary-title">
+        <div class="summary-panel">
+          <div class="summary-main">
+            <div>
+              <h2 id="summary-title">资料越来越多，找资料比学习更费时间。</h2>
+              <p>LecMind面向资料密集型学生，把资料管理、阅读整理和复习待办，串成一条真正能执行的学习路径。</p>
+            </div>
+            <div class="summary-metrics">
+              <span class="metric"><strong>1条</strong>资料整理到复习主线</span>
+              <span class="metric"><strong>4步</strong>集中-阅读-卡片-复习</span>
+            </div>
+          </div>
+          <div class="trait-grid">
+            <article class="trait-card">
+              <b>01</b>
+              <h3>资料先归位</h3>
+              <p>PDF、课件、笔记先统一导入学习主题，减少考前四处找资料的成本。</p>
+            </article>
+            <article class="trait-card">
+              <b>02</b>
+              <h3>阅读既整理</h3>
+              <p>边阅读边沉淀知识结构，让重点从长文档和散笔记里浮出来。</p>
+            </article>
+            <article class="trait-card">
+              <b>03</b>
+              <h3>脑图和复习卡</h3>
+              <p>脑图负责梳理知识框架，复习卡负责反复记忆，二者结合形成完整学习闭环。</p>
+            </article>
+            <article class="trait-card">
+              <b>04</b>
+              <h3>每天有清单</h3>
+              <p>每天都清楚地知道自己该复习什么，而不是重新翻阅一堆资料。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="feature-section" id="story" aria-labelledby="story-title">
+        <div class="section-title reveal">
+          <h2 id="story-title">从资料管理开始，但不止于资料管理</h2>
+          <p>用LecMind整理分散资料，生成脑图和复习卡，让考前复习清晰有序。</p>
+        </div>
+
+        <article class="feature-row reveal">
+          <div class="feature-copy">
+            <span class="number">01</span>
+            <h2>先把资料集中起来，而不是打开很多文件</h2>
+            <p>PDF、课件、笔记和各种资料统一放入学习主题。资料管理只是第一步，目的不是让东西看起来整齐，而是让后续的阅读整理和复习安排能够顺利衔接。</p>
+            <ul class="feature-list">
+              <li>适合考研、期末和专业课复习资料</li>
+              <li>视频、复习卡和文档互相关联，随时追溯原文</li>
+              <li>多资料主题一个脑图关联，清晰明了</li>
+            </ul>
+            <a class="primary-button" href="https://adqnb58k1a.feishu.cn/share/base/form/shrcn0AuDt79vIFh67A7WsnP6be" target="_blank" rel="noopener noreferrer">申请免费内测 →</a>
+          </div>
+          <img class="screen-card" src="public/组合 197.webp" alt="LecMind 统一管理 PDF、课件、图片、视频和文档资料">
+        </article>
+
+        <article class="feature-row reverse reveal">
+          <div class="feature-copy">
+            <span class="number">02</span>
+            <h2>阅读资料时，把重点沉淀成脑图和复习卡</h2>
+            <p>不是为了整理而整理。真正要解决的是看了很多资料后，临近考试仍然没有重点，最后焦虑到无从下手。</p>
+            <ul class="feature-list">
+              <li>文档和脑图双向联动，做到一边阅读一边整理框架</li>
+              <li>把各种重点分支转成可复习的知识卡片</li>
+              <li>把易忘知识点变成需要反复巩固的复习卡片</li>
+            </ul>
+            <a class="primary-button" href="https://adqnb58k1a.feishu.cn/share/base/form/shrcn0AuDt79vIFh67A7WsnP6be" target="_blank" rel="noopener noreferrer">申请免费内测 →</a>
+          </div>
+          <img class="screen-card" src="public/组合 226.webp" alt="LecMind 阅读资料时添加脑图节点和复习卡">
+        </article>
+
+        <article class="feature-row reveal">
+          <div class="feature-copy">
+            <span class="number">03</span>
+            <h2>直接告诉你今天该复习什么</h2>
+            <p>临近学习高峰或考试时，零散资料会变成复习负担。LecMind帮你把资料整理成可执行的复习队列。</p>
+            <ul class="feature-list">
+              <li>今日待复习卡片清楚呈现</li>
+              <li>每个学习主题的知识掌握情况一目了然</li>
+              <li>把无序资料，变成可按计划推进的复习任务</li>
+            </ul>
+            <a class="primary-button" href="https://adqnb58k1a.feishu.cn/share/base/form/shrcn0AuDt79vIFh67A7WsnP6be" target="_blank" rel="noopener noreferrer">申请免费内测 →</a>
+          </div>
+          <img class="screen-card" src="public/组合 230.webp" alt="LecMind 今日复习清单和复习卡组">
+        </article>
+      </section>
+
+      <section class="core-path reveal" aria-labelledby="path-title">
+        <div class="section-title">
+          <h2 id="path-title">告别功能冗余，聚焦核心学习路径</h2>
+          <p>市面上学习软件五花八门，各种功能层出不穷，新手学习成本巨大。</p>
+        </div>
+        <div class="path-showcase" data-path-showcase>
+          <div class="path-tabs" role="tablist" aria-label="核心学习路径">
+            <button class="path-tab" id="path-tab-1" type="button" role="tab" aria-selected="true" aria-controls="path-panel-1" data-path-tab="0">
+              <span class="path-tab-title">创建学习主题</span>
+              <p class="path-tab-copy">设定学习目标，创建主题，明确学习方向。</p>
+            </button>
+            <button class="path-tab" id="path-tab-2" type="button" role="tab" aria-selected="false" aria-controls="path-panel-2" data-path-tab="1">
+              <span class="path-tab-title">添加文档资料</span>
+              <p class="path-tab-copy">导入课件、笔记、电子书等资料，LecMind 自动解析内容。</p>
+            </button>
+            <button class="path-tab" id="path-tab-3" type="button" role="tab" aria-selected="false" aria-controls="path-panel-3" data-path-tab="2">
+              <span class="path-tab-title">批注、脑图和复习卡</span>
+              <p class="path-tab-copy">标记重点，构建知识框架，把内容沉淀成复习卡。</p>
+            </button>
+            <button class="path-tab" id="path-tab-4" type="button" role="tab" aria-selected="false" aria-controls="path-panel-4" data-path-tab="3">
+              <span class="path-tab-title">开始复习</span>
+              <p class="path-tab-copy">按计划复习，巩固知识，持续提升学习效果。</p>
+            </button>
+          </div>
+          <div class="path-stage">
+            <div class="path-panel active" id="path-panel-1" role="tabpanel" aria-labelledby="path-tab-1">
+              <img src="public/蒙版-4.webp" alt="创建学习主题界面">
+            </div>
+            <div class="path-panel" id="path-panel-2" role="tabpanel" aria-labelledby="path-tab-2" hidden>
+              <img src="public/添加文档资料.webp" alt="添加文档资料界面">
+            </div>
+            <div class="path-panel" id="path-panel-3" role="tabpanel" aria-labelledby="path-tab-3" hidden>
+              <img src="public/蒙版-5.webp" alt="批注、脑图和复习卡界面">
+            </div>
+            <div class="path-panel" id="path-panel-4" role="tabpanel" aria-labelledby="path-tab-4" hidden>
+              <img src="public/蒙版-7.webp" alt="开始复习界面">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="final-cta reveal" aria-labelledby="final-title">
+        <h2 id="final-title">快来成为LecMind的第一批用户吧</h2>
+        <p>留下手机号，待软件测试完成时可免费体验。届时我们会发送短信通知。</p>
+        <a class="primary-button" href="https://adqnb58k1a.feishu.cn/share/base/form/shrcn0AuDt79vIFh67A7WsnP6be" target="_blank" rel="noopener noreferrer">申请免费内测 →</a>
+      </section>
+    </main>
+
+  </div>
+
+  <script>
+
+    var _hmt = _hmt || [];
+    (function () {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4c7c4b5f9d9a5fafb65122223e4442c8";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+
+    document.querySelectorAll("[data-path-showcase]").forEach((showcase) => {
+      const tabs = Array.from(showcase.querySelectorAll("[data-path-tab]"));
+      const panels = Array.from(showcase.querySelectorAll(".path-panel"));
+      const autoplayDelay = 5000;
+      const pauseReasons = new Set(["offscreen"]);
+      let activeIndex = 0;
+      let timerId = null;
+      let startedAt = 0;
+      let remainingTime = autoplayDelay;
+
+      const restartProgress = () => {
+        showcase.classList.remove("is-autoplaying");
+        void showcase.offsetWidth;
+        showcase.classList.add("is-autoplaying");
+      };
+
+      const startTimer = () => {
+        window.clearTimeout(timerId);
+        if (pauseReasons.size || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+        showcase.classList.remove("is-paused");
+        startedAt = performance.now();
+        timerId = window.setTimeout(() => {
+          activatePathTab((activeIndex + 1) % tabs.length);
+        }, remainingTime);
+      };
+
+      const resetAutoplay = () => {
+        remainingTime = autoplayDelay;
+        restartProgress();
+        if (pauseReasons.size) showcase.classList.add("is-paused");
+        startTimer();
+      };
+
+      const activatePathTab = (index) => {
+        activeIndex = index;
+        tabs.forEach((tab, tabIndex) => {
+          const isActive = tabIndex === index;
+          tab.setAttribute("aria-selected", String(isActive));
+          tab.tabIndex = isActive ? 0 : -1;
+        });
+
+        panels.forEach((panel, panelIndex) => {
+          const isActive = panelIndex === index;
+          panel.classList.toggle("active", isActive);
+          panel.hidden = !isActive;
+        });
+
+        resetAutoplay();
+      };
+
+      const pauseAutoplay = (reason) => {
+        if (!pauseReasons.size && timerId) {
+          remainingTime = Math.max(0, remainingTime - (performance.now() - startedAt));
+        }
+        pauseReasons.add(reason);
+        window.clearTimeout(timerId);
+        timerId = null;
+        showcase.classList.add("is-paused");
+      };
+
+      const resumeAutoplay = (reason) => {
+        pauseReasons.delete(reason);
+        if (pauseReasons.size) return;
+        startTimer();
+      };
+
+      tabs.forEach((tab, index) => {
+        tab.addEventListener("click", () => activatePathTab(index));
+        tab.addEventListener("keydown", (event) => {
+          if (!["ArrowLeft", "ArrowRight"].includes(event.key)) return;
+          event.preventDefault();
+          const nextIndex = event.key === "ArrowRight"
+            ? (index + 1) % tabs.length
+            : (index - 1 + tabs.length) % tabs.length;
+          activatePathTab(nextIndex);
+          tabs[nextIndex].focus();
+        });
+      });
+
+      showcase.addEventListener("mouseenter", () => pauseAutoplay("hover"));
+      showcase.addEventListener("mouseleave", () => resumeAutoplay("hover"));
+
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          pauseAutoplay("hidden");
+        } else {
+          resumeAutoplay("hidden");
+        }
+      });
+
+      const pathObserver = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          resumeAutoplay("offscreen");
+        } else {
+          pauseAutoplay("offscreen");
+        }
+      }, { threshold: 0.25 });
+
+      pathObserver.observe(showcase);
+      restartProgress();
+      showcase.classList.add("is-paused");
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.16 });
+
+    document.querySelectorAll(".reveal").forEach((element) => {
+      if (!element.classList.contains("visible")) revealObserver.observe(element);
+    });
+
+  </script>
+</body>
+</html>
